@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   //todo: change favicon
   //87 pacakges are looking for fundin, run npm fund
+  //aliases fro components
   title = 'devcom-internet-shop';
   constructor(private product: ProductServiceService) {
 
