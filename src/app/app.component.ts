@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  //todo: change favicon
+  //87 pacakges are looking for fundin, run npm fund
   title = 'devcom-internet-shop';
 }
