@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { of } from 'rxjs/internal/observable/of';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-side-nav',
@@ -6,10 +10,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-
+  @Input()  public isOpened: boolean = false;
+  @Input()  public routes: string[] = [];
+  @Output() public onChanged: EventEmitter<void> = new EventEmitter<void>()
+  
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  public onSideNavClose(): void {
+    this.onChanged.emit();
+    console.log('closed !')
+  }
 }

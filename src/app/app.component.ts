@@ -11,12 +11,22 @@ export class AppComponent {
   //87 pacakges are looking for fundin, run npm fund
   //aliases fro components
   title = 'devcom-internet-shop';
+  public isSideNavOpened: boolean = true;
+  public sideNavRoutes: string[] = ['catalog', 'cart'];
+  
   constructor(private product: ProductServiceService) {
 
-  }
-  public onGetAllProducts(e: Event):void {
+  };
+
+  public onGetAllProducts(e: Event): void {
     this.product.getAllProducts().subscribe((data: any) => {
       console.log(data)
     });
-  }
+  };
+
+  public onToggleDrawer(): void {
+    this.isSideNavOpened = !this.isSideNavOpened;
+    console.log('toggled !')
+  };
+
 }

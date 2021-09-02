@@ -1,1 +1,9 @@
-<p>side-nav works!</p>
+<mat-sidenav-container fullscreen>
+    <mat-sidenav [opened]="isOpened" (closedStart)="onSideNavClose()">
+        Sidenav content
+        <p *ngFor="let route of routes">{{route}}</p>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
