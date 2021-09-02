@@ -5,7 +5,7 @@ import { CatalogComponent } from './_product-catalog/catalog.component';
 const routes: Routes = [
   {
     path: 'cart',
-    loadChildren: () => import('./_cart/cart.module').then(m => m.CartModule)
+    loadChildren: () => import("./_cart/cart.module").then(m => m.CartModule)
   },
   {
     path: '',
