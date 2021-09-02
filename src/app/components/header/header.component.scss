@@ -5,7 +5,6 @@
     &__item {
         padding: 0 12px;
         text-transform: uppercase;
-        height: 100%;
         &.active {
             filter: brightness(95%);
             background-color: red;   
@@ -19,6 +18,9 @@
         padding: 14px 16px;
         text-decoration: none;
         font-size: 17px;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 .search-bar-container {

@@ -47,9 +47,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../components/header/header.component';
 import { SearchBarComponent } from '../components/search-bar/search-bar.component';
 import { SideNavComponent } from '../components/side-nav/side-nav.component';
+import {RouterModule} from '@angular/router';
 @NgModule({
   declarations: [HeaderComponent, SearchBarComponent, SideNavComponent],
   imports: [
+    RouterModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -99,6 +101,7 @@ import { SideNavComponent } from '../components/side-nav/side-nav.component';
     ScrollingModule,
   ],
   exports: [
+    RouterModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,
