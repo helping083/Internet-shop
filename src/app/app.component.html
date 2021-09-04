@@ -1,8 +1,8 @@
 <app-side-nav 
     [isOpened] = "isSideNavOpened" 
-    (onChanged) = "onToggleDrawer()"
+    (onChanged) = "onCloseDrawer()"
     [routes] = "sideNavRoutes"
 >
-    <app-header></app-header>
+    <app-header (showSideNav)="onOpenDrawer()"></app-header>
     <router-outlet></router-outlet>
 </app-side-nav>

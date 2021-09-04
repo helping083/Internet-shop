@@ -1,10 +1,17 @@
-<mat-toolbar color="primary" class="toolbar">
-  <ul class="header__list">
-    <li class="header__list__item active"><a routerLink="">catalog</a></li>
-    <li class="header__list__item"><a routerLink="/cart">cart</a></li>
-  </ul>
-  <div class="search-bar-container">
-    <app-search-bar></app-search-bar>
-  </div>
-  <div>cart</div>
-</mat-toolbar>
+<nav>
+  <mat-toolbar color="primary" class="toolbar">
+    <button class="side-nav-button" mat-icon-button (click)="onShowSideNav()" type="button" matRipple #sideNavButton>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <ul class="header__list">
+      <li class="header__list__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
+          routerLink="">catalog</a></li>
+      <li class="header__list__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
+          routerLink="/cart">cart</a></li>
+    </ul>
+    <div class="search-bar-container">
+      <app-search-bar></app-search-bar>
+    </div>
+    <div>cart</div>
+  </mat-toolbar>
+</nav>

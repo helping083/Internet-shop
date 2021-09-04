@@ -11,8 +11,8 @@ export class AppComponent {
   //87 pacakges are looking for fundin, run npm fund
   //aliases fro components
   title = 'devcom-internet-shop';
-  public isSideNavOpened: boolean = true;
-  public sideNavRoutes: string[] = ['catalog', 'cart'];
+  public isSideNavOpened: boolean = false;
+  public sideNavRoutes: string[] = ['', 'cart'];
   
   constructor(private product: ProductServiceService) {
 
@@ -24,9 +24,12 @@ export class AppComponent {
     });
   };
 
-  public onToggleDrawer(): void {
-    this.isSideNavOpened = !this.isSideNavOpened;
-    console.log('toggled !')
+  public onCloseDrawer(): void {
+    this.isSideNavOpened = false;
+    console.log('drawer closed !')
   };
-
+  public onOpenDrawer(): void {
+    this.isSideNavOpened =  true;
+    console.log('drawer opened');
+  }
 }

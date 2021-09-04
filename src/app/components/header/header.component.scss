@@ -5,24 +5,27 @@
     &__item {
         padding: 0 12px;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
         &.active {
-            filter: brightness(95%);
-            background-color: red;   
+            background-color: rgba(0,0,0,.2);   
         }
     }
     a {
         text-decoration: none;
         display: inline-block;
         color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
         text-decoration: none;
         font-size: 17px;
         &:hover {
             cursor: pointer;
+            color: #f48fb1;
         }
     }
-}
-.search-bar-container {
-    
-}
+};
+
+@media (min-width: 768px) { 
+    .side-nav-button {
+        display: none;
+    }
+};
