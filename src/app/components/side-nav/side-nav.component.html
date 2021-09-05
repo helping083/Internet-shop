@@ -1,6 +1,5 @@
 <mat-sidenav-container fullscreen>
     <mat-sidenav [opened]="isOpened" (closedStart)="onSideNavClose()" class="sidenav">
-        Sidenav content
         <mat-nav-list>
             <a 
                 [routerLink]="[link === '' ? '' : '/' + link]"

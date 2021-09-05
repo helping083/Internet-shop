@@ -7,7 +7,7 @@ import { AbstractControl }from '@angular/forms';
 })
 export class SearchBarComponent implements OnInit {
   @Input() placeHolder: string = "placeholder";
-  @Input() searchControl!: AbstractControl;
+  @Input() searchControl: AbstractControl;
   constructor() { }
 
   ngOnInit(): void {

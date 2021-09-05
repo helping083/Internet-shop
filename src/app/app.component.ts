@@ -1,4 +1,3 @@
-import { ProductServiceService } from './services/product-service.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -14,14 +13,8 @@ export class AppComponent {
   public isSideNavOpened: boolean = false;
   public sideNavRoutes: string[] = ['', 'cart'];
   
-  constructor(private product: ProductServiceService) {
+  constructor() {
 
-  };
-
-  public onGetAllProducts(e: Event): void {
-    this.product.getAllProducts().subscribe((data: any) => {
-      console.log(data)
-    });
   };
 
   public onCloseDrawer(): void {
