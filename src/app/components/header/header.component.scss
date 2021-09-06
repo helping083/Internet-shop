@@ -58,6 +58,13 @@
         max-width: 70%;
     }
 }
+
+@media(max-width: 568px){
+    .cart-container {
+        margin-right: 0px;
+    }
+}
+
 @media (min-width: 769px) { 
     .side-nav-button {
         display: none;
