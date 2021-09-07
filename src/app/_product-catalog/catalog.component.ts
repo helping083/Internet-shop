@@ -1,5 +1,7 @@
+import { IProduct } from './../interfaces/product.interface';
 import { Component, OnInit } from '@angular/core';
 import { ProductServiceService } from '../services/product-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-catalog',
@@ -7,13 +9,12 @@ import { ProductServiceService } from '../services/product-service.service';
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent implements OnInit {
+  public products$: Observable<IProduct[]>;
 
-  constructor(private product: ProductServiceService) { }
+  constructor(private productService: ProductServiceService) { }
 
   ngOnInit(): void {
-    this.product.getAllProducts().subscribe((data: any) => {
-      console.log(data);
-    });
+    this.productService.getAllProducts()
+    this.products$ = this.productService.filteredProducts$
   }
-
 }

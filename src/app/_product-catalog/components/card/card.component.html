@@ -1,0 +1,15 @@
+<mat-card class="card-body">
+
+    <app-card-image 
+      [imageUrl]="productCard.image_link"
+      [alt_text]="'progress'"
+    ></app-card-image>
+    <mat-card-header>
+      <mat-card-title>{{productCard.name}}</mat-card-title>
+    </mat-card-header>
+      
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="onAddToCart()">add</button>
+      <button mat-raised-button color="accent">like</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,1 +1,11 @@
-<p>catalog works!</p>
+<div class="catalog">
+	<div class="catalog__filters">card filters</div>
+	<div class="catalog__container">
+		<div class="filters">
+			filters
+		</div>
+		<div class="card-container">
+			<app-card *ngFor="let product of products$ | async" [productCard]="product"></app-card>
+		</div>
+	</div>
+</div>
