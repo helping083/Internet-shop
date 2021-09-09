@@ -13,8 +13,17 @@
       <app-search-bar></app-search-bar>
     </div>
     <div class="cart-container">
-      <button type="button" mat-icon-button>
-        <mat-icon>shopping_cart</mat-icon>
+      <button 
+        type="button" 
+        mat-icon-button 
+        [matBadge]="productsAmount" 
+        [matBadgeHidden]="!isBadgeHidden"
+        matBadgeColor="warn"
+        matBadgeSize="small"
+      > 
+        <mat-icon class="material-icons-outlined">
+          shopping_cart
+        </mat-icon>
       </button>
     </div>
   </nav>

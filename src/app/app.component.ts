@@ -9,6 +9,9 @@ export class AppComponent {
   //todo: change favicon
   //87 pacakges are looking for fundin, run npm fund
   //aliases fro components
+  //todo trackbyfn
+  // add global styles like gloal media
+  // add media query scss functions
   title = 'devcom-internet-shop';
   public isSideNavOpened: boolean = false;
   public sideNavRoutes: string[] = ['', 'cart'];

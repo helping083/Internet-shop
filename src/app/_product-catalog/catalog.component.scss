@@ -1,0 +1,41 @@
+.catalog {
+    &__filters {
+        padding: 16px 0;
+    }
+    &__container {
+        display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+.filters {
+    display: none;
+    align-self: flex-start;
+    width: 250px;
+    background-color: white;
+}
+.content-container {
+    flex-grow: 1;
+}
+.card-container {
+    padding-left: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    grid-auto-rows: 1fr;
+    justify-content: center;
+    grid-gap: 8px;
+    margin-bottom: 16px;
+}
+.pagination-controls {
+    margin: 0 24px;
+    &::ng-deep .ngx-pagination  {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media(min-width: 1024px) {
+    .filters {
+        display: block;
+    }
+}
