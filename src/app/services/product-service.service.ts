@@ -14,7 +14,7 @@ export class ProductServiceService  {
   constructor(private http: HttpClient) { }
 
   public getAllProducts(): void {
-    this.http.get<IProduct[]>('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline')
+    this.http.get<IProduct[]>('http://makeup-api.herokuapp.com/api/v1/products.json')
       .subscribe((productsData: IProduct[]) => {
           this._products = productsData;
           this._productsOriginal$.next(productsData);

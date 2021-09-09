@@ -2,8 +2,15 @@
     display: block;
 }
 img {
-    height: auto;
-    width: 50%;
+    height: 160px;
+    width: 170px;
     display: block;
     margin: 0 auto;
+    position: relative;
+}
+@media (max-width: 490px) {
+    img {
+        width: 210px;
+        height: 210px;
+    }
 }

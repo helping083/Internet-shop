@@ -1,11 +1,19 @@
-<div class="catalog">
+<div class="catalog" *ngIf="!isLoading; else loader">
 	<div class="catalog__filters">card filters</div>
 	<div class="catalog__container">
-		<div class="filters">
+		<aside class="filters">
 			filters
-		</div>
-		<div class="card-container">
-			<app-card *ngFor="let product of products$ | async" [productCard]="product"></app-card>
-		</div>
+			<p>dumb</p>
+		</aside>
+		<section class="content-container">
+			<div class="card-container">
+				<app-card 
+					*ngFor="let product of products | paginate: { itemsPerPage: 8, currentPage: p }" 
+					[productCard] = "product"
+					(addCardToCart)="onAddToCart($event)"></app-card>
+			</div>
+			<pagination-controls (pageChange)="p = $event" [responsive]="true" class="pagination-controls"></pagination-controls>	
+		</section>
 	</div>
 </div>
+<ng-template #loader>loader</ng-template>

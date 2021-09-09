@@ -8,14 +8,14 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CardComponent implements OnInit {
   @Input()  public productCard: IProduct;
-  @Output() public addToCart: EventEmitter<IProduct> = new EventEmitter<IProduct>()
+  @Output() public addCardToCart: EventEmitter<IProduct> = new EventEmitter<IProduct>()
   constructor() { }
 
   ngOnInit(): void {
   }
 
   public onAddToCart(): void {
-    this.addToCart.emit(this.productCard);
+    this.addCardToCart.emit(this.productCard);
     console.log('added', this.productCard)
   }
 }

@@ -1,15 +1,24 @@
 <mat-card class="card-body">
-
+    <div class="card__tile">
+      <mat-icon color="warn">favorite_border</mat-icon>
+    </div>
     <app-card-image 
-      [imageUrl]="productCard.image_link"
+      [imageUrl]="productCard.api_featured_image"
       [alt_text]="'progress'"
     ></app-card-image>
-    <mat-card-header>
+    <mat-card-header class="card__header">
       <mat-card-title>{{productCard.name}}</mat-card-title>
     </mat-card-header>
-      
-    <mat-card-actions>
-      <button mat-raised-button color="accent" (click)="onAddToCart()">add</button>
-      <button mat-raised-button color="accent">like</button>
+    <bar-rating [rate]="productCard.rating" [readOnly]="true" class="rating-bar"></bar-rating>
+    <mat-card-actions class="card__actions">
+      <strong>{{productCard.price | currency:productCard.currency || "USD"}}</strong>
+      <button 
+        type="button" 
+        mat-raised-button 
+        color="accent"
+        (click)="onAddToCart()"
+      > 
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
     </mat-card-actions>
 </mat-card>

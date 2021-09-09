@@ -20,6 +20,12 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "angular-star-rating": "^4.0.0-beta.3",
+    "css-star-rating": "^1.2.4",
+    "ngx-bar-rating": "^2.0.0",
+    "ngx-material-rating": "^2.0.0",
+    "ngx-pagination": "^5.1.1",
+    "ngx-star-rating": "^2.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
