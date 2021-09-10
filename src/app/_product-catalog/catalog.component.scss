@@ -1,6 +1,9 @@
 .catalog {
     &__filters {
         padding: 16px 0;
+        text-align: right;
+        max-width: 1200px;
+        margin: 0 auto;
     }
     &__container {
         display: flex;
@@ -25,6 +28,9 @@
     justify-content: center;
     grid-gap: 8px;
     margin-bottom: 16px;
+}
+.content__sorting-container {
+    margin-bottom: 8px;
 }
 .pagination-controls {
     margin: 0 24px;

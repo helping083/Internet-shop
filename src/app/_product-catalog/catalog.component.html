@@ -1,5 +1,16 @@
 <div class="catalog" *ngIf="!isLoading; else loader">
-	<div class="catalog__filters">card filters</div>
+	<div class="catalog__filters">card filters
+		<span>tile</span>
+		<span>list</span>
+		<mat-form-field appearance="standard">
+			<mat-label>Sort by</mat-label>
+			<mat-select [formControl]="product_sort">
+				<mat-option *ngFor="let enum of sorthingMethod | keyvalue:originalOrder" [value]="enum.value">
+					sort by {{enum.value}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
 	<div class="catalog__container">
 		<aside class="filters">
 			filters
@@ -7,12 +18,11 @@
 		</aside>
 		<section class="content-container">
 			<div class="card-container">
-				<app-card 
-					*ngFor="let product of products | paginate: { itemsPerPage: 8, currentPage: p }" 
-					[productCard] = "product"
-					(addCardToCart)="onAddToCart($event)"></app-card>
+				<app-card *ngFor="let product of products | paginate: { itemsPerPage:8 , currentPage: pageNumber }"
+					[productCard]="product" (addCardToCart)="onAddToCart($event)"></app-card>
 			</div>
-			<pagination-controls (pageChange)="p = $event" [responsive]="true" class="pagination-controls"></pagination-controls>	
+			<pagination-controls (pageChange)="pageNumber = $event" [responsive]="true" class="pagination-controls">
+			</pagination-controls>
 		</section>
 	</div>
 </div>

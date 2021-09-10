@@ -10,7 +10,7 @@ export interface IProduct {
     id: number;
     image_link: string,
     name: string;
-    price: string;
+    price: string | null;
     price_sign: string | null;
     product_api_url: string;
     product_colors: IProductColor[];

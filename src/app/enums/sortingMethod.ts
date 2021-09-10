@@ -1,7 +1,8 @@
 export enum SORTING_METHOD {
+    UNSORTED = '---',
     DATE = 'DATE',
     OLDEST = 'OLDEST',
     RATING = 'RATING',
     CHEAPEST = 'CHEAPEST',
-    EXPENSIVE = 'EXPENSIVE'
+    EXPENSIVE = 'EXPENSIVE',
 }
