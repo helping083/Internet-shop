@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CardComponent implements OnInit {
   @Input()  public productCard: IProduct;
+  @Input()  public isListDisplay: boolean = false;
   @Output() public addCardToCart: EventEmitter<IProduct> = new EventEmitter<IProduct>()
   constructor() { }
 

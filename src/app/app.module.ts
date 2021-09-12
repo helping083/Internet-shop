@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductCatalogModule } from './_product-catalog/product-catalog.module';
+import { NgxPopperjsModule } from 'ngx-popperjs';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ProductCatalogModule } from './_product-catalog/product-catalog.module'
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ProductCatalogModule
+    ProductCatalogModule,
+    NgxPopperjsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

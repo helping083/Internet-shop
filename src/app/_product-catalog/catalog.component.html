@@ -1,15 +1,28 @@
 <div class="catalog" *ngIf="!isLoading; else loader">
-	<div class="catalog__filters">card filters
-		<span>tile</span>
-		<span>list</span>
-		<mat-form-field appearance="standard">
-			<mat-label>Sort by</mat-label>
-			<mat-select [formControl]="product_sort">
-				<mat-option *ngFor="let enum of sorthingMethod | keyvalue:originalOrder" [value]="enum.value">
-					sort by {{enum.value}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+	<div class="catalog__filters-container">
+		<div class="filters-container__filters">
+			<button type=" button" (click)="testReplay()">test replay</button>
+			<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.TILE)">
+				<mat-icon 
+					class="filters-container__icon" 
+					[ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.TILE}"
+				>grid_on</mat-icon>
+			</button>
+			<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.LIST)">
+				<mat-icon 
+					class="filters-container__icon"
+					[ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.LIST}"
+				>reorder</mat-icon>
+			</button>
+			<mat-form-field appearance="standard" class="filters-container__sort-controller">
+				<mat-label>Sort by</mat-label>
+				<mat-select [formControl]="productsSortController">
+					<mat-option *ngFor="let enum of sorthingMethod | keyvalue:originalOrder" [value]="enum.value">
+						{{enum.value}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
 	</div>
 	<div class="catalog__container">
 		<aside class="filters">
@@ -17,13 +30,23 @@
 			<p>dumb</p>
 		</aside>
 		<section class="content-container">
-			<div class="card-container">
-				<app-card *ngFor="let product of products | paginate: { itemsPerPage:8 , currentPage: pageNumber }"
-					[productCard]="product" (addCardToCart)="onAddToCart($event)"></app-card>
+			<div class="card-container" [ngClass]="{'list-display': cartDisplayMethod === cartDisplayEnum.LIST}">
+				<ng-container *ngIf="!isCardLoading; else cardLoader">
+					<app-card
+						*ngFor="let product of products | paginate: { itemsPerPage:8 , currentPage: paginationPageNumber }"
+						[productCard]="product"
+						[isListDisplay]= "cartDisplayMethod === cartDisplayEnum.LIST"
+						(addCardToCart)="onAddToCart($event)"></app-card>
+				</ng-container>
 			</div>
-			<pagination-controls (pageChange)="pageNumber = $event" [responsive]="true" class="pagination-controls">
+			<div>
+			<pagination-controls (pageChange)="paginationPageNumber = $event" [responsive]="true"
+				class="pagination-controls" *ngIf="!isCardLoading">
 			</pagination-controls>
+			</div>
+
 		</section>
 	</div>
 </div>
 <ng-template #loader>loader</ng-template>
+<ng-template #cardLoader>card loader</ng-template>

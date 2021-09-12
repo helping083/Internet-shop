@@ -4,7 +4,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between;   
 }
 .card__tile {
     margin: $cardMargins;
@@ -29,4 +29,12 @@
        min-width: 50px;
        line-height: 30px;
    }
+}
+@media(min-width: 1210px) {
+    .card-body {
+        max-width: $max-card-width;
+        &.cart-tile {
+            max-width: none;
+        }
+    }
 }
