@@ -1,7 +1,0 @@
-export enum SORTING_METHOD {
-    DATE = 'DATE',
-    OLDEST = 'OLDEST',
-    RATING = 'RATING',
-    CHEAPEST = 'CHEAPEST',
-    EXPENSIVE = 'EXPENSIVE'
-}

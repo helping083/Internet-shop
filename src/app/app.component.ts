@@ -12,6 +12,8 @@ export class AppComponent {
   //todo trackbyfn
   // add global styles like gloal media
   // add media query scss functions
+  //add logo to header
+  //error handling in services
   title = 'devcom-internet-shop';
   public isSideNavOpened: boolean = false;
   public sideNavRoutes: string[] = ['', 'cart'];
