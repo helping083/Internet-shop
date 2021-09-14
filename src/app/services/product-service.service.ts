@@ -13,8 +13,8 @@ export class ProductServiceService  {
   private _productsOriginal$: Subject<IProduct[]> = new Subject<IProduct[]>();
   public readonly filteredProducts$: Observable<IProduct[]> = this._productsOriginal$.asObservable();
 
-  private sortingMethod: SORTING_METHOD = SORTING_METHOD.UNSORTED;
-  private searchValue: string = '';
+  private _sortingMethod: SORTING_METHOD = SORTING_METHOD.UNSORTED;
+  private _searchValue: string = '';
 
   private _products: IProduct[] = [];
 
@@ -34,12 +34,12 @@ export class ProductServiceService  {
   }
 
   public searchByName(name: string): void {
-    this.searchValue = name;
+    this._searchValue = name;
     this.sortAndFilterProducts();
   }
 
   public sortProducts(sortingMethod: SORTING_METHOD): void {
-    this.sortingMethod = sortingMethod;
+    this._sortingMethod = sortingMethod;
     this.sortAndFilterProducts();
   }
 
@@ -49,18 +49,18 @@ export class ProductServiceService  {
       this._productsOriginal$.next(modified);
       return;
     }
-    if(this.searchValue !== "") {
+    if(this._searchValue !== "") {
         modified = this.filterByName(modified);
     }
-    if(this.sortingMethod !== SORTING_METHOD.UNSORTED) {
-      modified = this.sortByMethod(this.sortingMethod, modified);
+    if(this._sortingMethod !== SORTING_METHOD.UNSORTED) {
+      modified = this.sortByMethod(this._sortingMethod, modified);
     }
     console.log(modified);
     this._productsOriginal$.next(modified);
   }
 
   private filterByName(products: IProduct[]): IProduct[] {
-    return products.filter(product => product.name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase()));
+    return products.filter(product => product.name.toLocaleLowerCase().includes(this._searchValue.toLocaleLowerCase()));
   }
 
   private sortByMethod(sortingMethod: SORTING_METHOD, products: IProduct[]):IProduct[] {

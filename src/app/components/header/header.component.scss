@@ -42,7 +42,40 @@
     .mat-icon {
         font-size: 28px;
     }
+
 }
+.cart-popper {
+    max-height: 500px;
+    overflow-y:scroll;
+    &__cart-item {
+        border-bottom: 1px solid #d1d7dc;
+        display: flex;
+        padding: 16px;
+        width: 350px;
+    }
+    .cart-item {
+        &__image {
+            margin-right: 10px;
+            width: 3.2rem;
+            height: 3.2rem;
+            overflow: hidden;
+            img {
+                vertical-align: middle;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    }
+    &__footer {
+        padding: 20px;
+    }
+    .footer {
+        &__cart-button {
+            width: 100%;
+        }
+    }
+}
+
 @media(max-width: 1024px) {
     .search-bar-container {
         margin-right: 0px;

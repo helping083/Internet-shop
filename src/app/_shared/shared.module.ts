@@ -47,10 +47,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../components/header/header.component';
 import { SearchBarComponent } from '../components/search-bar/search-bar.component';
 import { SideNavComponent } from '../components/side-nav/side-nav.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule} from '@angular/router';
+import { NgxPopperModule } from 'ngx-popper';
 @NgModule({
   declarations: [HeaderComponent, SearchBarComponent, SideNavComponent],
   imports: [
+    NgxPopperModule.forRoot({}),
     RouterModule,
     CommonModule,
     FormsModule,
@@ -101,6 +103,7 @@ import {RouterModule} from '@angular/router';
     ScrollingModule,
   ],
   exports: [
+    
     RouterModule,
     A11yModule,
     ClipboardModule,

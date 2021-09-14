@@ -6,6 +6,7 @@
 }
 img {
     max-width: 100%;
+    height: auto;
 }
 html, body { 
     height: 100%; 
@@ -15,4 +16,11 @@ body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     padding: 0;
+}
+.cart-popper  {
+    .ngxp__container {
+        padding: 0px;
+        background-color: white;
+        z-index: 1000;
+    }
 }

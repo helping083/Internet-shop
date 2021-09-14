@@ -1,0 +1,4 @@
+export enum LOCAL_STORAGE_STORE {
+    ORDERS = "ORDERS",
+    FAVORITE = "FAVORITE",
+}
