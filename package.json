@@ -23,7 +23,8 @@
     "@popperjs/core": "^2.10.1",
     "ngx-bar-rating": "^2.0.0",
     "ngx-pagination": "^5.1.1",
-    "ngx-popperjs": "^12.1.2",
+    "ngx-popper": "^7.0.0",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
