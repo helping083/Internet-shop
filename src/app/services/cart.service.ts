@@ -11,29 +11,36 @@ import { IOrder } from '../interfaces';
 export class CartService {
   private _cartSubject$: BehaviorSubject<IOrder[]> = new BehaviorSubject<IOrder[]>([]);
   private _productsAmount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  
+  private _totalPriceSubject$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _cartItems: IOrder[] = [];
 
   constructor(private localStorageService: LocalStorageService) { }
 
   public addToCart(product: IProduct): void {
-    let orders: IOrder[] = this.localStorageService.getOrdersLocalStorage();
+    const orders: IOrder[] = this.localStorageService.getOrdersLocalStorage();
     let order: IOrder = orders.find(localStorageOrder => localStorageOrder.id === product.id) as IOrder;
     if(!order) {
-      order = {id: product.id, amount: 1, product};
+      const price: number = parseFloat(product.price || '0');
+      const amountPrice = this.calcAmountPrice(1, price)
+      order = {id: product.id, amount: 1, product, amountPrice};
       orders.push(order);
     } else {
       order.amount +=1;
+      order.amountPrice = this.calcAmountPrice(order.amount, parseFloat(order.product.price || '0'))
     }
     this._cartItems = orders;
     this._cartSubject$.next(orders);
+    this.calcTotalPrice(orders);
     this.calcOrdersAmount(orders);
     this.localStorageService.addOrderToLocalStorage(orders);
   }
 
   public removeFromCart(id: number): void {
-    this._cartItems = this._cartItems.filter(product => product.id === id);
-    this._cartSubject$.next(this._cartItems);
+    let orders: IOrder[] = this.localStorageService.getOrdersLocalStorage().filter(item => item.id != id);
+    this._cartSubject$.next(orders);
+    this.calcTotalPrice(orders);
+    this.calcOrdersAmount(orders);
+    this.localStorageService.addOrderToLocalStorage(orders);
   }
 
   public getOrders(): Observable<IOrder[]> {
@@ -53,7 +60,23 @@ export class CartService {
     const amount: number = orders.reduce((prev: number, curr: IOrder) => {
       return prev + curr.amount
     },0) as number;
-    console.log('amount', amount);
     this._productsAmount$.next(amount)
+  }
+  
+  public getTotalPrice(): Observable<number> {
+    let orders: IOrder[] = this.localStorageService.getOrdersLocalStorage() as IOrder[];
+    this.calcTotalPrice(orders);
+    return this._totalPriceSubject$.asObservable();
+  }
+  
+  private calcTotalPrice(orders: IOrder[]): void {
+    const totalPrice: number = orders.reduce((prev: number, curr: IOrder) => {
+      return prev + curr.amountPrice
+    }, 0) as number;
+    this._totalPriceSubject$.next(totalPrice);
+  }
+
+  private calcAmountPrice(amount: number, price: number): number {
+    return parseFloat((amount * price).toFixed(2));
   }
 }
