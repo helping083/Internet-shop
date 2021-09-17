@@ -4,5 +4,7 @@
     [routes] = "sideNavRoutes"
 >
     <app-header (showSideNav)="onOpenDrawer()"></app-header>
-    <router-outlet></router-outlet>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
 </app-side-nav>

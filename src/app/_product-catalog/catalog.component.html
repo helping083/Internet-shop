@@ -26,8 +26,11 @@
 	</div>
 	<div class="catalog__container">
 		<aside class="filters">
-			filters
-			<p>dumb</p>
+			<app-filters-panel 
+				class="filters__accordion" 
+				*ngFor="let filter of filters" 
+				[filter]="filter" 
+				(filterCards)="onFilter($event)"></app-filters-panel>
 		</aside>
 		<section class="content-container">
 			<div class="card-container" [ngClass]="{'list-display': cartDisplayMethod === cartDisplayEnum.LIST}">

@@ -1,20 +1,24 @@
+import { IFilter } from './../interfaces/filter.interface';
+import { FiltersService } from './../services/filters.service';
 import { FormControl } from '@angular/forms';
 import { switchMap, take, takeUntil } from 'rxjs/operators';
 import { IProduct } from './../interfaces/product.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ProductServiceService } from '../services/product-service.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { SORTING_METHOD } from '../enums';
 import { KeyValue } from '@angular/common';
 import { SHOWING_METHOD } from './enums';
+import { ActivatedRoute, Router, UrlSerializer } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss']
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, OnChanges {
   public products: IProduct[] = [];
   public paginationPageNumber: number = 0;
   public isLoading: boolean = true;
@@ -23,19 +27,32 @@ export class CatalogComponent implements OnInit {
   public cartDisplayEnum: typeof SHOWING_METHOD = SHOWING_METHOD
   public cartDisplayMethod: SHOWING_METHOD = SHOWING_METHOD.TILE;
   public productsSortController: FormControl = new FormControl();
-  
+  public filters: IFilter[];
+  private _params: any;
   private destroySubject$: Subject<void> = new Subject<void>();
 
-  constructor(private productService: ProductServiceService, private cartService: CartService) { }
+  constructor(
+    private router: Router,
+    private productService: ProductServiceService, 
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private serializer: UrlSerializer,
+    private filtersService: FiltersService ) { }
+  ngOnChanges() {
 
+  }
   ngOnInit(): void {
     this.isLoading = true;
+    this.filtersService.makeUpFilters$.pipe(takeUntil(this.destroySubject$))
+      .subscribe((filters: IFilter[]) => {
+        this.filters = filters;
+      });
     this.productService.allProducts$.pipe(takeUntil(this.destroySubject$))
       .subscribe((data: IProduct[]) => {
-        console.log('works')
         this.products = data;
         this.isLoading = false;
         this.isCardLoading = false;
+        console.log('products', data)
       })
     this
       .productService
@@ -49,9 +66,13 @@ export class CatalogComponent implements OnInit {
       .valueChanges
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((data: any) => {
-        console.log('values changed')
         this.productService.sortProducts(data);
       });
+    this.route.queryParamMap.pipe(takeUntil(this.destroySubject$))
+      .subscribe((paramMap: any) => {
+        this._params = paramMap.params
+        console.log('param map',paramMap.params)
+      })
   }
 
   public onAddToCart(product: IProduct): void {
@@ -64,8 +85,21 @@ export class CatalogComponent implements OnInit {
     return 0;
   }
   public testReplay(): void {
+      let params: HttpParams = new HttpParams()
+      params = params.set('brand', 'maybelline')
+      params = params.set('brand', 'alva');
+      
+
       this.isCardLoading = true;
-      this.productService.refreshProducts();
+      this.productService.refreshProducts(params);
+      this.router.navigate([''], {queryParams: {'brand': 'maybelline'}})
+  }
+  public onFilter($event: any): void {
+    console.log('filter value', $event, this._params)
+  }
+
+  private refresh(): void {
+    
   }
   ngOnDestroy(): void {
     this.destroySubject$.next();

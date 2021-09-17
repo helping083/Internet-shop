@@ -1,36 +1,39 @@
+import { FiltersService } from './filters.service';
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import {  BehaviorSubject, Observable,  ReplaySubject,  Subject } from 'rxjs';
 import { IProduct } from '../interfaces';
 import { SORTING_METHOD } from '../enums';
-import { exhaustMap, shareReplay, tap } from 'rxjs/operators';
+import { exhaustMap, shareReplay, tap, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductServiceService  {
-  private readonly URL: string = 'http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
+  private readonly URL: string = 'http://makeup-api.herokuapp.com/api/v1/products.json';
   private _productsOriginal$: Subject<IProduct[]> = new Subject<IProduct[]>();
   public readonly filteredProducts$: Observable<IProduct[]> = this._productsOriginal$.asObservable();
-
+  private _cache$: Map<string, Observable<IProduct[]>> = new Map();
   private _sortingMethod: SORTING_METHOD = SORTING_METHOD.UNSORTED;
   private _searchValue: string = '';
 
   private _products: IProduct[] = [];
 
-  public cachedRequest$: BehaviorSubject<void | undefined> = new BehaviorSubject<void | undefined>(undefined);
+  public cachedRequest$: BehaviorSubject<void | undefined | string> = new BehaviorSubject<void | undefined | string>(undefined);
 
   public allProducts$: Observable<IProduct[]> = this.cachedRequest$.pipe(
-    exhaustMap(() => this.http.get<IProduct[]>(this.URL)),
+    exhaustMap((params: any) => {
+      console.log('params in service', params)
+      return this.http.get<IProduct[]>(this.URL, {params}) 
+    }),
     tap((productsResponse: IProduct[]) => this._products = productsResponse),
-    shareReplay(),
+    tap((productsResponse: IProduct[]) => this.filtersService.onCreateMakeUpFilters(productsResponse)),
+    shareReplay(1)
   );
+  constructor(private http: HttpClient, private filtersService:FiltersService) { }
 
-
-  constructor(private http: HttpClient) { }
-
-  public refreshProducts() {
-    this.cachedRequest$.next();
+  public refreshProducts(test:any) {
+    this.cachedRequest$.next(test);
   }
 
   public searchByName(name: string): void {

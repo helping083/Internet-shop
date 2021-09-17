@@ -7,12 +7,14 @@ import { CardImageComponent } from './components/card-image/card-image.component
 import { SharedModule } from '../_shared/shared.module';
 import { BarRatingModule } from "ngx-bar-rating";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FiltersPanelComponent } from './components/filters-panel/filters-panel.component';
 
 @NgModule({
   declarations: [
     CatalogComponent,
     CardComponent,
-    CardImageComponent
+    CardImageComponent,
+    FiltersPanelComponent
   ],
   imports: [
     CommonModule,
