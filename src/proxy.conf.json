@@ -1,0 +1,8 @@
+{
+  "/api": {
+      "target": "http://makeup-api.herokuapp.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+  }
+}

@@ -1,7 +1,7 @@
 <div class="catalog" *ngIf="!isLoading; else loader">
 	<div class="catalog__filters-container">
 		<div class="filters-container__filters">
-			<button type=" button" (click)="testReplay()">test replay</button>
+			<!-- <button type=" button" (click)="testReplay()">test replay</button> -->
 			<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.TILE)">
 				<mat-icon 
 					class="filters-container__icon" 
@@ -30,7 +30,7 @@
 				class="filters__accordion" 
 				*ngFor="let filter of filters" 
 				[filter]="filter" 
-				(filterCards)="onFilter($event)"></app-filters-panel>
+				(filterCards)="testReplay($event)"></app-filters-panel>
 		</aside>
 		<section class="content-container">
 			<div class="card-container" [ngClass]="{'list-display': cartDisplayMethod === cartDisplayEnum.LIST}">
@@ -38,6 +38,7 @@
 					<app-card
 						*ngFor="let product of products | paginate: { itemsPerPage:8 , currentPage: paginationPageNumber }"
 						[productCard]="product"
+						class="catalog__card"
 						[isListDisplay]= "cartDisplayMethod === cartDisplayEnum.LIST"
 						(addCardToCart)="onAddToCart($event)"></app-card>
 				</ng-container>

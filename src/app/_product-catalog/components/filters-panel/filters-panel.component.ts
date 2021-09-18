@@ -23,7 +23,7 @@ export class FiltersPanelComponent implements OnInit {
     });
   }
   public updateAllComplete(event: any): void {
-    let filterName = this.filter.filterName;
+    let filterName = this.filter.filterApiName;
     let filterValue = this.filterValue;
     this.filterCards.emit({filterName, filterValue});
   }

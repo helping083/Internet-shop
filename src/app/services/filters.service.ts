@@ -28,10 +28,10 @@ export class FiltersService {
       product_type.add(product.product_type);
     });
 
-    filters.push({filterName: 'catergories', filterValues:[...categories]});
-    filters.push({filterName: 'tag_list', filterValues: [...tagList]});
-    filters.push({filterName: 'brand', filterValues: [...brand]});
-    filters.push({filterName: 'product_type', filterValues: [...product_type]});
+    filters.push({filterName: 'catergories', filterApiName: 'product_category', filterValues:[...categories]});
+    filters.push({filterName: 'tag list',filterApiName: 'product_tags', filterValues: [...tagList]});
+    filters.push({filterName: 'brand', filterApiName: 'brand' ,filterValues: [...brand]});
+    filters.push({filterName: 'product type', filterApiName: 'product_type', filterValues: [...product_type]});
 
     this._makeUpFiltersSubject$.next(filters);
     this._makeUpFiltersSubject$.complete()

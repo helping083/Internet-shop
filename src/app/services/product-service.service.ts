@@ -10,7 +10,7 @@ import { exhaustMap, shareReplay, tap, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductServiceService  {
-  private readonly URL: string = 'http://makeup-api.herokuapp.com/api/v1/products.json';
+  private readonly URL: string = '/api/v1/products.json';
   private _productsOriginal$: Subject<IProduct[]> = new Subject<IProduct[]>();
   public readonly filteredProducts$: Observable<IProduct[]> = this._productsOriginal$.asObservable();
   private _cache$: Map<string, Observable<IProduct[]>> = new Map();
@@ -22,9 +22,14 @@ export class ProductServiceService  {
   public cachedRequest$: BehaviorSubject<void | undefined | string> = new BehaviorSubject<void | undefined | string>(undefined);
 
   public allProducts$: Observable<IProduct[]> = this.cachedRequest$.pipe(
-    exhaustMap((params: any) => {
-      console.log('params in service', params)
-      return this.http.get<IProduct[]>(this.URL, {params}) 
+    switchMap((params: any) => {
+      let cacheUrl = this.formUrl(this.URL, params)
+      console.log('cache',this._cache$);
+      console.log('cache url', this._cache$.get(cacheUrl))
+      if(!this._cache$.get(cacheUrl)) {
+        this._cache$.set(cacheUrl, this.http.get<IProduct[]>(this.URL, {params}).pipe(shareReplay(1)))
+      }
+      return  this._cache$.get(cacheUrl) as Observable<IProduct[]>;
     }),
     tap((productsResponse: IProduct[]) => this._products = productsResponse),
     tap((productsResponse: IProduct[]) => this.filtersService.onCreateMakeUpFilters(productsResponse)),
@@ -106,5 +111,8 @@ export class ProductServiceService  {
       return this.getTime(a.created_at) - this.getTime(b.created_at);
     });
     return sorted;
+  }
+  private formUrl(url: string, params: any): string {
+    return params  ? `${url}?${params.toString()}`: `${url}?`;
   }
 }

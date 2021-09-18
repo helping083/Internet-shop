@@ -28,7 +28,7 @@ export class CatalogComponent implements OnInit, OnChanges {
   public cartDisplayMethod: SHOWING_METHOD = SHOWING_METHOD.TILE;
   public productsSortController: FormControl = new FormControl();
   public filters: IFilter[];
-  private _params: any;
+  private _params: {[key: string]: string} = {};
   private destroySubject$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -52,7 +52,6 @@ export class CatalogComponent implements OnInit, OnChanges {
         this.products = data;
         this.isLoading = false;
         this.isCardLoading = false;
-        console.log('products', data)
       })
     this
       .productService
@@ -68,10 +67,9 @@ export class CatalogComponent implements OnInit, OnChanges {
       .subscribe((data: any) => {
         this.productService.sortProducts(data);
       });
-    this.route.queryParamMap.pipe(takeUntil(this.destroySubject$))
-      .subscribe((paramMap: any) => {
-        this._params = paramMap.params
-        console.log('param map',paramMap.params)
+    this.route.queryParams.pipe(takeUntil(this.destroySubject$))
+      .subscribe((params: any) => {
+        this._params = params
       })
   }
 
@@ -84,25 +82,32 @@ export class CatalogComponent implements OnInit, OnChanges {
   public originalOrder(a: KeyValue<string,string>, b: KeyValue<string,string>): number {
     return 0;
   }
-  public testReplay(): void {
+  public testReplay(e: {[key: string]: string}): void {
+      const {filterName, filterValue} = e
       let params: HttpParams = new HttpParams()
-      params = params.set('brand', 'maybelline')
-      params = params.set('brand', 'alva');
-      
-
+      let queryParams: {[key: string]: string} = {};
+      Object.keys(this._params).forEach((key: any) => {
+        params = params.set(key, this._params[key])
+        queryParams[key] = this._params[key];
+      })
+      if(e.filterValue === '') {
+        delete queryParams[filterName]
+        params = params.delete(filterName);
+      } else {
+        params = params.set(filterName, filterValue);
+        queryParams[filterName] = filterValue;
+      }
       this.isCardLoading = true;
       this.productService.refreshProducts(params);
-      this.router.navigate([''], {queryParams: {'brand': 'maybelline'}})
+      this.router.navigate([''], {queryParams});
+      this.paginationPageNumber = 0
   }
-  public onFilter($event: any): void {
-    console.log('filter value', $event, this._params)
-  }
-
   private refresh(): void {
-    
+
   }
   ngOnDestroy(): void {
     this.destroySubject$.next();
     this.destroySubject$.complete();
+    console.log('destroyed');
   }
 }
