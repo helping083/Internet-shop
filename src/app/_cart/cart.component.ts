@@ -27,6 +27,6 @@ export class CartComponent implements OnInit {
     this.cartService.addToCart(order.product)
   }
   public onRemoveOrder(order:IOrder):void {
-    console.log(order);
+    this.cartService.decreaseOrderAmount(order.product);
   }
 }

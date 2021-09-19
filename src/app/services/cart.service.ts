@@ -29,20 +29,23 @@ export class CartService {
       order.amountPrice = this.calcAmountPrice(order.amount, parseFloat(order.product.price || '0'))
     }
     this._cartItems = orders;
-    this._cartSubject$.next(orders);
-    this.calcTotalPrice(orders);
-    this.calcOrdersAmount(orders);
-    this.localStorageService.addOrderToLocalStorage(orders);
+    this._refreshState(orders)
   }
 
   public removeFromCart(id: number): void {
     let orders: IOrder[] = this.localStorageService.getOrdersLocalStorage().filter(item => item.id != id);
-    this._cartSubject$.next(orders);
-    this.calcTotalPrice(orders);
-    this.calcOrdersAmount(orders);
-    this.localStorageService.addOrderToLocalStorage(orders);
+    this._refreshState(orders)
   }
-
+  public decreaseOrderAmount(product: IProduct): void {
+    const orders: IOrder[] = this.localStorageService.getOrdersLocalStorage();
+    let order: IOrder = orders.find(localStorageOrder => localStorageOrder.id === product.id) as IOrder;
+    order.amount -=1;
+    if(order.amount === 0) {
+      this.removeFromCart(order.id);
+    } else {
+      this._refreshState(orders)
+    }
+  }
   public getOrders(): Observable<IOrder[]> {
     let orders: IOrder[] = this.localStorageService.getOrdersLocalStorage() as IOrder[];
     this._cartItems = orders;
@@ -55,7 +58,12 @@ export class CartService {
     this.calcOrdersAmount(orders);
     return this._productsAmount$.asObservable()
   }
-
+  private _refreshState(orders: IOrder[]): void {
+    this._cartSubject$.next(orders);
+    this.calcTotalPrice(orders);
+    this.calcOrdersAmount(orders);
+    this.localStorageService.addOrderToLocalStorage(orders);
+  }
   private calcOrdersAmount(orders: IOrder[]): void {
     const amount: number = orders.reduce((prev: number, curr: IOrder) => {
       return prev + curr.amount
