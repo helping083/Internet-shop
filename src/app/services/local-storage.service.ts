@@ -11,7 +11,6 @@ export class LocalStorageService {
 
   public addOrderToLocalStorage(orders: IOrder[]): void {
     localStorage.setItem(LOCAL_STORAGE_STORE.ORDERS, JSON.stringify(orders));
-    console.log('orders from localStorage', this.getOrdersLocalStorage());
   }
   public getOrdersLocalStorage(): IOrder[] {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_STORE.ORDERS) || '[]') as IOrder[];

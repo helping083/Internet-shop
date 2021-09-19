@@ -40,9 +40,11 @@ export class CartService {
     const orders: IOrder[] = this.localStorageService.getOrdersLocalStorage();
     let order: IOrder = orders.find(localStorageOrder => localStorageOrder.id === product.id) as IOrder;
     order.amount -=1;
+ 
     if(order.amount === 0) {
       this.removeFromCart(order.id);
     } else {
+      order.amountPrice = this.calcAmountPrice(order.amount, parseFloat(order.product.price || '0'))
       this._refreshState(orders)
     }
   }
