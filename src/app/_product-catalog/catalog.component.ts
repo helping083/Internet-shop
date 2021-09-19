@@ -21,6 +21,8 @@ import { HttpParams } from '@angular/common/http';
 export class CatalogComponent implements OnInit, OnChanges {
   public products: IProduct[] = [];
   public paginationPageNumber: number = 0;
+  public paginationPageAmount: number = 8;
+  public paginationPageAmountOptions: number[] = [1,4,8,16,20,50,100];
   public isLoading: boolean = true;
   public isCardLoading: boolean = true;
   public sorthingMethod: typeof SORTING_METHOD = SORTING_METHOD;

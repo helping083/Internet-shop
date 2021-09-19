@@ -1,54 +1,58 @@
 <div class="catalog" *ngIf="!isLoading; else loader">
 	<div class="catalog__filters-container">
-		<div class="filters-container__filters">
+		<div class="catalog__filters">
 			<!-- <button type=" button" (click)="testReplay()">test replay</button> -->
-			<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.TILE)">
-				<mat-icon 
-					class="filters-container__icon" 
-					[ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.TILE}"
-				>grid_on</mat-icon>
-			</button>
-			<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.LIST)">
-				<mat-icon 
-					class="filters-container__icon"
-					[ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.LIST}"
-				>reorder</mat-icon>
-			</button>
-			<mat-form-field appearance="standard" class="filters-container__sort-controller">
-				<mat-label>Sort by</mat-label>
-				<mat-select [formControl]="productsSortController">
-					<mat-option *ngFor="let enum of sorthingMethod | keyvalue:originalOrder" [value]="enum.value">
-						{{enum.value}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
+			<div class="align--items">
+				<mat-icon class="catalog__filters-icon">filter_list</mat-icon>
+				<div class="catalog__paginationAmountControl">
+					<mat-form-field appearance="standard" >
+						<mat-label>show cards</mat-label>
+						<mat-select [(ngModel)]="paginationPageAmount">
+							<mat-option *ngFor="let option of paginationPageAmountOptions" [value]="option">
+								{{option}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div>
+				<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.TILE)">
+					<mat-icon class="catalog__icon" [ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.TILE}">grid_on
+					</mat-icon>
+				</button>
+				<button type="button" mat-icon-button (click)="onChangeDisplayCards(cartDisplayEnum.LIST)">
+					<mat-icon class="catalog__icon" [ngClass]="{'active': cartDisplayMethod === cartDisplayEnum.LIST}">reorder
+					</mat-icon>
+				</button>
+				<mat-form-field appearance="standard" class="catalog__sort-controller">
+					<mat-label>Sort by</mat-label>
+					<mat-select [formControl]="productsSortController">
+						<mat-option *ngFor="let enum of sorthingMethod | keyvalue:originalOrder" [value]="enum.value">
+							{{enum.value}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
 		</div>
 	</div>
 	<div class="catalog__container">
 		<aside class="filters">
-			<app-filters-panel 
-				class="filters__accordion" 
-				*ngFor="let filter of filters" 
-				[filter]="filter" 
+			<app-filters-panel class="filters__accordion" *ngFor="let filter of filters" [filter]="filter"
 				(filterCards)="testReplay($event)"></app-filters-panel>
 		</aside>
 		<section class="content-container">
 			<div class="card-container" [ngClass]="{'list-display': cartDisplayMethod === cartDisplayEnum.LIST}">
 				<ng-container *ngIf="!isCardLoading; else cardLoader">
-					<app-card
-						*ngFor="let product of products | paginate: { itemsPerPage:8 , currentPage: paginationPageNumber }"
-						[productCard]="product"
-						class="catalog__card"
-						[isListDisplay]= "cartDisplayMethod === cartDisplayEnum.LIST"
+					<app-card *ngFor="let product of products | paginate: { itemsPerPage:paginationPageAmount , currentPage: paginationPageNumber }"
+						[productCard]="product" class="catalog__card" [isListDisplay]="cartDisplayMethod === cartDisplayEnum.LIST"
 						(addCardToCart)="onAddToCart($event)"></app-card>
 				</ng-container>
 			</div>
 			<div>
-			<pagination-controls (pageChange)="paginationPageNumber = $event" [responsive]="true"
-				class="pagination-controls" *ngIf="!isCardLoading">
-			</pagination-controls>
+				<pagination-controls (pageChange)="paginationPageNumber = $event" [responsive]="true"
+					class="pagination-controls" *ngIf="!isCardLoading">
+				</pagination-controls>
 			</div>
-
 		</section>
 	</div>
 </div>
