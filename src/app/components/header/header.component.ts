@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { IProduct } from './../../interfaces/product.interface';
 import { ProductServiceService } from './../../services/product-service.service';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Component, Output, EventEmitter, ElementRef, ViewChild, OnInit } from '@angular/core';
@@ -18,9 +20,14 @@ export class HeaderComponent implements OnInit {
   public isBadgeHidden: boolean = true;
   public searchControl: FormControl = new FormControl();
   public orders: IOrder[] = [];
+  public totalPrice: number = 0;
   private destroySubject$: Subject<void> = new Subject<void>();
   
-  constructor(private cartService: CartService, private productService: ProductServiceService) {
+  constructor(
+    private cartService: CartService, 
+    private productService: ProductServiceService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -35,6 +42,9 @@ export class HeaderComponent implements OnInit {
       this.productsAmount = amount;
       this.isBadgeHidden = amount > 0;
     });
+    this.cartService.getTotalPrice().subscribe((totalPrice: number) => {
+      this.totalPrice = totalPrice;
+    });
     this.searchControl.valueChanges.pipe(
         takeUntil(this.destroySubject$),
         debounceTime(400)
@@ -45,5 +55,17 @@ export class HeaderComponent implements OnInit {
   public onShowSideNav(): void {
     this.showSideNav.emit();
     this.sideNavButton.nativeElement.blur();
+  }
+  public onDecreaseOrder(order: IProduct): void {
+    this.cartService.decreaseOrderAmount(order)
+  }
+  public onIncreaseOrder(order: IProduct): void {
+    this.cartService.addToCart(order);
+  }
+  public onDeleteOrder(orderId: number): void {
+    this.cartService.removeFromCart(orderId);
+  }
+  public onGoToCard(): void {
+    this.router.navigate(['/cart'])
   }
 }
