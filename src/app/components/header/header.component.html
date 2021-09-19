@@ -23,7 +23,6 @@
         [popper]="tooltipcontent" 
         [popperHideOnMouseLeave]="true"
         [popperTrigger]="'hover'" 
-        [popperPositionFixed]="true"
         [popperPreventOverflow]="true"
         [popperHideOnClickOutside]="true"
         [popperPlacement]="'bottom-end'">
@@ -73,8 +72,8 @@
         </button>
       </div>
     </ng-container>
+    <ng-template #cartEmptyTemplate>
+      <div class="popper--empty">your cart is empty</div>
+    </ng-template>
   </div>
 </popper-content>
-<ng-template #cartEmptyTemplate>
-  <div class="popper--empty">your cart is empty</div>
-</ng-template>
