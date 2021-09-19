@@ -4,8 +4,9 @@
   </mat-drawer>
   <app-side-nav [isOpened]="isSideNavOpened" (onChanged)="onCloseDrawer()" [routes]="sideNavRoutes">
     <app-header (showSideNav)="onOpenDrawer()"></app-header>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    <app-footer></app-footer>
   </app-side-nav>
 </mat-drawer-container>
