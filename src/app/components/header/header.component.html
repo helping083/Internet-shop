@@ -23,6 +23,9 @@
         [popper]="tooltipcontent" 
         [popperHideOnMouseLeave]="true"
         [popperTrigger]="'hover'" 
+        [popperPositionFixed]="true"
+        [popperPreventOverflow]="true"
+        [popperHideOnClickOutside]="true"
         [popperPlacement]="'bottom-end'">
         <mat-icon>
           shopping_cart
@@ -37,7 +40,7 @@
     <ng-container *ngIf="orders.length > 0; else cartEmptyTemplate">
       <a *ngFor="let order of orders" class="cart-popper__cart-item">
         <div class="cart-item__image">
-          <img [src]="order.product.image_link" />s
+          <img [src]="order.product.image_link" />
         </div>
         <div class="cart-popper__cart-description">
           <div class="cart-item__name"><strong>{{order.product.name | slice:0:30}}...</strong></div>
@@ -73,5 +76,5 @@
   </div>
 </popper-content>
 <ng-template #cartEmptyTemplate>
-  <div>your cart is empty</div>
+  <div class="popper--empty">your cart is empty</div>
 </ng-template>
