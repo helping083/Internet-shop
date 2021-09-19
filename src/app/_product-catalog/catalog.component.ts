@@ -99,15 +99,17 @@ export class CatalogComponent implements OnInit, OnChanges {
       }
       this.isCardLoading = true;
       this.productService.refreshProducts(params);
-      this.router.navigate([''], {queryParams});
+      this.router.navigate(['/catalog'], {queryParams});
       this.paginationPageNumber = 0
   }
   private refresh(): void {
-
+    let params: HttpParams = new HttpParams()
+    this.productService.refreshProducts(params);
   }
   ngOnDestroy(): void {
     this.destroySubject$.next();
     this.destroySubject$.complete();
     console.log('destroyed');
+    this.refresh();
   }
 }

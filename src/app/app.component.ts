@@ -14,6 +14,11 @@ export class AppComponent {
   // add media query scss functions
   //add logo to header
   //error handling in services
+  //restart app handle http params
+  // functions descriptions (comments)
+  // routing modules description(like function descriptions, look in new_pfa)
+  // padding cards on media
+  // max-width of cards on media
   title = 'devcom-internet-shop';
   public isSideNavOpened: boolean = false;
   public sideNavRoutes: string[] = ['', 'cart'];

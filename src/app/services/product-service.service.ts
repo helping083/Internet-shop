@@ -36,8 +36,12 @@ export class ProductServiceService  {
     shareReplay(1)
   );
   constructor(private http: HttpClient, private filtersService:FiltersService) { }
+  
+  public getCardDetails(id: string): Observable<IProduct> {
+    return this.http.get<IProduct>(`/api/v1/products/${id}.json`);
+  }
 
-  public refreshProducts(test:any) {
+  public refreshProducts(test:any):void {
     this.cachedRequest$.next(test);
   }
 

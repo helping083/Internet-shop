@@ -1,0 +1,45 @@
+<div *ngIf="!isCardDetailsLoading; else loader">
+  <div class="card-details">
+    <h2 class="card-details__name">{{productDetail.name}}</h2>
+    <div class="card-details__container">
+      <img [src]="productDetail.api_featured_image" />
+      <h4 class="card-details__brand"><strong>Brand: </strong>{{productDetail.brand}}</h4>
+      <div class="card-details__price-container">
+        <h4 class="card-details__price">
+          <strong>Price: </strong>
+          {{productDetail.price || '0' | currency:productDetail.currency || "USD"}}
+        </h4>
+        <button type="button" mat-raised-button color="accent" (click)="onAddToCart()">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </div>
+      <bar-rating [rate]="productDetail.rating" [readOnly]="true"></bar-rating>
+    </div>
+    <ng-container *ngIf="productColors.length > 0">
+      <div class="card-details__colors-container">
+        <div class='card-details__color-name'>{{colorName}}</div>
+        <div class="card-details__product-colors">
+          <div *ngFor="let color of productColors" class="card-details__color"
+            [ngClass]="{'active': colorName === color.colour_name}">
+            <div [ngStyle]="{'background': color.hex_value}" class="card-details__color-value"
+              (click)="colorName = color.colour_name"></div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="description">
+      <strong>Description:</strong>
+      <div class="card-details__details" [innerHTML]="productDetail.description"></div>
+    </div>
+    <p>
+      Tags:
+    </p>
+    <ng-container *ngIf="tagLists.length > 0">
+      <ul class="tagLists">
+        <li *ngFor="let tag of tagLists" class="tagLists__tag">{{tag}}</li>
+      </ul>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loader>loader</ng-template>

@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CardImageComponent implements OnInit {
   @Input() public imageUrl: string;
   @Input() public alt_text: string;
-  
+  @Input() public id: number
   constructor() { }
 
   ngOnInit(): void {
