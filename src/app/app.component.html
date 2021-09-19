@@ -1,10 +1,11 @@
-<app-side-nav 
-    [isOpened] = "isSideNavOpened" 
-    (onChanged) = "onCloseDrawer()"
-    [routes] = "sideNavRoutes"
->
+<mat-drawer-container class="example-container" fullscreen [hasBackdrop]="true">
+  <mat-drawer #drawer class="example-sidenav" mode="over">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
+  <app-side-nav [isOpened]="isSideNavOpened" (onChanged)="onCloseDrawer()" [routes]="sideNavRoutes">
     <app-header (showSideNav)="onOpenDrawer()"></app-header>
     <main>
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </main>
-</app-side-nav>
+  </app-side-nav>
+</mat-drawer-container>
