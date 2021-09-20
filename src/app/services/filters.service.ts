@@ -24,7 +24,9 @@ export class FiltersService {
         categories.add(product.category);
       }
       product.tag_list.forEach(item => tagList.add(item));
-      brand.add(product.brand);
+      if(product.brand) {
+        brand.add(product.brand);
+      }
       product_type.add(product.product_type);
     });
 

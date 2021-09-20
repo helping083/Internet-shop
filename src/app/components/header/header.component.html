@@ -39,7 +39,7 @@
     <ng-container *ngIf="orders.length > 0; else cartEmptyTemplate">
       <a *ngFor="let order of orders" class="cart-popper__cart-item">
         <div class="cart-item__image">
-          <img [src]="order.product.image_link" />
+          <img [src]="order.product.api_featured_image" />
         </div>
         <div class="cart-popper__cart-description">
           <div class="cart-item__name"><strong>{{order.product.name | slice:0:30}}...</strong></div>
