@@ -7,6 +7,7 @@
   padding: 0px 22px;
   display: flex;
   flex-direction: row;
+  min-height: calc(100vh - 192px);
   &__list-container {
     flex: 1 1;
     width: 100%;
@@ -120,6 +121,7 @@
 }
 @media (max-width: 600px) {
   .cart {
+    min-height: calc(100vh - 184px);
     &__cart-item {
       padding: 30px 10px 50px 10px;
     }

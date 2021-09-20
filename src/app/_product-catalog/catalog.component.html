@@ -1,9 +1,8 @@
 <div class="catalog" *ngIf="!isLoading; else loader">
 	<div class="catalog__filters-container">
 		<div class="catalog__filters">
-			<!-- <button type=" button" (click)="testReplay()">test replay</button> -->
 			<div class="align--items">
-				<mat-icon class="catalog__filters-icon">filter_list</mat-icon>
+				<mat-icon class="catalog__filters-icon" (click)="onOpenFiltersSideNav()">filter_list</mat-icon>
 				<div class="catalog__paginationAmountControl">
 					<mat-form-field appearance="standard" >
 						<mat-label>show cards</mat-label>
@@ -38,7 +37,7 @@
 	<div class="catalog__container">
 		<aside class="filters">
 			<app-filters-panel class="filters__accordion" *ngFor="let filter of filters" [filter]="filter"
-				(filterCards)="testReplay($event)"></app-filters-panel>
+				(filterCards)="onFilterProducts($event)"></app-filters-panel>
 		</aside>
 		<section class="content-container">
 			<div class="card-container" [ngClass]="{'list-display': cartDisplayMethod === cartDisplayEnum.LIST}">

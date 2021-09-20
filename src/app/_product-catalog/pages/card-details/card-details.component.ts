@@ -1,5 +1,5 @@
 import { CartService } from 'src/app/services/cart.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IProduct } from './../../../interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -17,7 +17,8 @@ export class CardDetailsComponent implements OnInit, OnDestroy {
   public productColors: IProductColor[] = [];
   public colorName: string = '';
   public tagLists: string[] = [];
-  public isCardDetailsLoading: boolean = false
+  public isCardDetailsLoading: boolean = false;
+
   constructor(
     private productService: ProductServiceService, 
     private route: ActivatedRoute,
@@ -39,7 +40,12 @@ export class CardDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.productDetailsSubscription.unsubscribe();
   }
+
+  /**
+   * adds to the cart and local storage product instance
+   * @returns {void}
+   */
   public onAddToCart(): void {
-    this.cartService.addToCart(this.productDetail)
+    this.cartService.addToCart(this.productDetail);
   }
 }

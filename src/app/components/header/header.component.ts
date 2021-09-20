@@ -59,20 +59,50 @@ export class HeaderComponent implements OnInit {
     this.showSideNav.emit();
     this.sideNavButton.nativeElement.blur();
   }
+
+  /**
+   * decreases amont of item in a cart and local storage
+   * if amount if the item === 0
+   * deletes item from the cart and local storage
+   * @param {IProduct} order 
+   */
   public onDecreaseOrder(order: IProduct): void {
     this.cartService.decreaseOrderAmount(order);
     this._hidePopper()
   }
+
+  /**
+   * if item is in a cart and local storage, increases his amount
+   * else, adds item to the cart and local storage
+   * @param {IProduct} order
+   * @returns {void}
+   */
   public onIncreaseOrder(order: IProduct): void {
     this.cartService.addToCart(order);
   }
+
+  /**
+   * 
+   * @param {number} orderId 
+   * @returns {void}
+   */
   public onDeleteOrder(orderId: number): void {
     this.cartService.removeFromCart(orderId);
     this._hidePopper()
   }
+
+  /**
+   * navigates to cart page on user click button in cart popper
+   * @returns {void}
+   */
   public onGoToCard(): void {
     this.router.navigate(['/cart'])
   }
+
+  /**
+   * hides cart popper js when he's empty
+   * @returns {void}
+   */
   private _hidePopper(): void {
     if(this.orders.length === 0) {
       this.cartPopper.hide()

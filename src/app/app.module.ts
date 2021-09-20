@@ -6,21 +6,21 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductCatalogModule } from './_product-catalog/product-catalog.module';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent
   ],
   imports: [
-    
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ProductCatalogModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

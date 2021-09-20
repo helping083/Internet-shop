@@ -12,6 +12,12 @@ export class FiltersService {
 
   constructor() { }
 
+  /**
+   * creates filters from products
+   * and sends'em to the view
+   * @param {IProduct[]} products 
+   * @returns {void}
+   */
   onCreateMakeUpFilters(products: IProduct[]): void {
     let categories: Set<string> = new Set();
     let tagList: Set<string> = new Set();
@@ -24,7 +30,9 @@ export class FiltersService {
         categories.add(product.category);
       }
       product.tag_list.forEach(item => tagList.add(item));
-      brand.add(product.brand);
+      if(product.brand) {
+        brand.add(product.brand);
+      }
       product_type.add(product.product_type);
     });
 
@@ -35,8 +43,5 @@ export class FiltersService {
 
     this._makeUpFiltersSubject$.next(filters);
     this._makeUpFiltersSubject$.complete()
-  }
-  private calcFiltersAmount(products: IProduct[]): void {
-    
-  }
+  };
 }

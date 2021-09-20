@@ -21,7 +21,11 @@ import { CardDetailsComponent } from './pages/card-details/card-details.componen
     CommonModule,
     SharedModule,
     BarRatingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    
+  ],
+  exports: [
+    FiltersPanelComponent
   ]
 })
 export class ProductCatalogModule { }
