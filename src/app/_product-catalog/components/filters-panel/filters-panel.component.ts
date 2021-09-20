@@ -22,9 +22,17 @@ export class FiltersPanelComponent implements OnInit {
       this.filters.push({value: filter, checked: false})
     });
   }
+
+  /**
+   * emits the filters name and the filters value
+   * to the parent component where an http cal wil be made
+   * in order to get filtered values from the server
+   * @param {any} event
+   * @returns {void}
+   */
   public updateAllComplete(event: any): void {
     let filterName = this.filter.filterApiName;
     let filterValue = this.filterValue;
     this.filterCards.emit({filterName, filterValue});
-  }
+  };
 }

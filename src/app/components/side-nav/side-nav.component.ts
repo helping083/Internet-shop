@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
-import { of } from 'rxjs/internal/observable/of';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 
@@ -18,6 +16,12 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  /**
+   * emits a value to the parent's component method
+   * which will close the side nav
+   * @returns {void}
+   */
   public onSideNavClose(): void {
     this.onChanged.emit();
   }

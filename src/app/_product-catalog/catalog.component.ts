@@ -1,11 +1,11 @@
 import { IFilter } from './../interfaces/filter.interface';
 import { FiltersService } from './../services/filters.service';
 import { FormControl } from '@angular/forms';
-import { switchMap, take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { IProduct } from './../interfaces/product.interface';
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductServiceService } from '../services/product-service.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, } from 'rxjs';
 import { CartService } from '../services/cart.service';
 import { SORTING_METHOD } from '../enums';
 import { KeyValue } from '@angular/common';
@@ -18,7 +18,7 @@ import { HttpParams } from '@angular/common/http';
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss']
 })
-export class CatalogComponent implements OnInit, OnChanges {
+export class CatalogComponent implements OnInit {
   public products: IProduct[] = [];
   public paginationPageNumber: number = 0;
   public paginationPageAmount: number = 8;
@@ -40,9 +40,7 @@ export class CatalogComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private serializer: UrlSerializer,
     private filtersService: FiltersService ) { }
-  ngOnChanges() {
 
-  }
   ngOnInit(): void {
     this.isLoading = true;
     this.filtersService.makeUpFilters$.pipe(takeUntil(this.destroySubject$))
@@ -75,16 +73,46 @@ export class CatalogComponent implements OnInit, OnChanges {
       })
   }
 
+  /**
+   * adds a product instance to the cart and local storage
+   * @param {IProduct} product
+   * @returns {void}
+   */
   public onAddToCart(product: IProduct): void {
       this.cartService.addToCart(product);
   }
+  
+  /**
+   * changes state for displaying cards
+   * list or tile
+   * @param {SHOWING_METHOD}displayMethod 
+   * @returns {void}
+   */
   public onChangeDisplayCards(displayMethod: SHOWING_METHOD):void {
     this.cartDisplayMethod = displayMethod;
   }
+
+  /**
+   * utility function in order to keep product sorting optons
+   * in sorted order
+   * @param {KeyValue<string,string>} a 
+   * @param {KeyValue<string,string>} b 
+   * @returns {number}
+   */
   public originalOrder(a: KeyValue<string,string>, b: KeyValue<string,string>): number {
     return 0;
   }
-  public testReplay(e: {[key: string]: string}): void {
+
+  /**
+   * this function creates http and query params
+   * based on filter options
+   * and invokes http service method to the server
+   * and routing class method for navigate to url with 
+   * query params
+   * @param {{[key: string]: string}} e
+   * @returns {void} 
+   */
+  public onFilterProducts(e: {[key: string]: string}): void {
       const {filterName, filterValue} = e
       let params: HttpParams = new HttpParams()
       let queryParams: {[key: string]: string} = {};
@@ -104,17 +132,26 @@ export class CatalogComponent implements OnInit, OnChanges {
       this.router.navigate(['/catalog'], {queryParams});
       this.paginationPageNumber = 0
   }
+
+ /**
+  * opens filters side drawer on mobile
+  * @returns {void}
+  */
   public onOpenFiltersSideNav(): void {
     this.productService.setFilterSideNavOpened(true);
   }
-  private refresh(): void {
+
+  /**
+   * refreshes http subject on a component destroy to the main request
+   * @returns {void}
+   */
+  private _refresh(): void {
     let params: HttpParams = new HttpParams()
     this.productService.refreshProducts(params);
   }
   ngOnDestroy(): void {
     this.destroySubject$.next();
     this.destroySubject$.complete();
-    console.log('destroyed');
-    this.refresh();
+    this._refresh();
   }
 }

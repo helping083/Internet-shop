@@ -17,9 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //add logo to header
   //error handling in services
   //restart app handle http params
-  // functions descriptions (comments)
   // routing modules description(like function descriptions, look in new_pfa)
-  // padding cards on media
   // max-width of cards on media
   title = 'makeup-internet-shop';
   public isFiltersSideNavSubscription: Subscription
@@ -36,17 +34,31 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isFilteredSideNavOpened = isFilteredSideNav;
       })
   }
+
+  /**
+   * closes sideNav menu
+   * @returns {void}
+   */
   public onCloseDrawer(): void {
-    this.isSideNavOpened = false;
-    console.log('drawer closed !')
+    this.isSideNavOpened = false;  
   };
+
+  /**
+   * opens sideNav menu
+   * @returns {void}
+   */
   public onOpenDrawer(): void {
     this.isSideNavOpened =  true;
-    console.log('drawer opened');
   }
+
+  /**
+   * callback which is invoked when filters side drawer starts closing
+   * @returns {void}
+   */
   onCloseSideDrawer() {
     this.productService.setFilterSideNavOpened(false)
   }
+
   ngOnDestroy() {
     this.isFiltersSideNavSubscription.unsubscribe()
   }

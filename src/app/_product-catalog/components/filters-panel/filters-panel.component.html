@@ -6,7 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <!-- our form array of checkboxes will go here -->
-    <mat-radio-group [(ngModel)]="filterValue" (change)="updateAllComplete($event)"> 
+    <mat-radio-group [(ngModel)]="filterValue" (change)="updateAllComplete($event)">
       <p>
         <mat-radio-button [value]="''" [name]="''">
           show all by {{filter.filterName}}
@@ -14,7 +14,6 @@
       </p>
 
       <p *ngFor="let control of filters; let i = index">
-
         <mat-radio-button [value]="control.value" [name]="control.value">
           {{control.value}}</mat-radio-button>
       </p>

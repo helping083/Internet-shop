@@ -15,14 +15,12 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
-    
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ProductCatalogModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
