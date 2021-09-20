@@ -1,5 +1,10 @@
 <mat-drawer-container class="example-container" fullscreen [hasBackdrop]="true">
-  <mat-drawer #drawer class="example-sidenav" mode="over">
+  <mat-drawer 
+    #drawer class="example-sidenav" 
+    mode="over" 
+    (closedStart)="onCloseSideDrawer()"
+    [opened]="isFilteredSideNavOpened"
+  >
     <p>Auto-resizing sidenav</p>
   </mat-drawer>
   <app-side-nav [isOpened]="isSideNavOpened" (onChanged)="onCloseDrawer()" [routes]="sideNavRoutes">

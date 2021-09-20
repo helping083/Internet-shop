@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ProductServiceService } from './services/product-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   //todo: change favicon
   //87 pacakges are looking for fundin, run npm fund
   //aliases fro components
@@ -19,14 +21,21 @@ export class AppComponent {
   // routing modules description(like function descriptions, look in new_pfa)
   // padding cards on media
   // max-width of cards on media
-  title = 'devcom-internet-shop';
+  title = 'makeup-internet-shop';
+  public isFiltersSideNavSubscription: Subscription
   public isSideNavOpened: boolean = false;
+  public isFilteredSideNavOpened: boolean = false;
   public sideNavRoutes: string[] = ['', 'cart'];
   
-  constructor() {
+  constructor(private productService: ProductServiceService) {
 
   };
-
+  ngOnInit() {
+    this.isFiltersSideNavSubscription = this.productService.getFiltersSideNavSubject()
+      .subscribe((isFilteredSideNav: boolean) => {
+        this.isFilteredSideNavOpened = isFilteredSideNav;
+      })
+  }
   public onCloseDrawer(): void {
     this.isSideNavOpened = false;
     console.log('drawer closed !')
@@ -34,5 +43,11 @@ export class AppComponent {
   public onOpenDrawer(): void {
     this.isSideNavOpened =  true;
     console.log('drawer opened');
+  }
+  onCloseSideDrawer() {
+    this.productService.setFilterSideNavOpened(false)
+  }
+  ngOnDestroy() {
+    this.isFiltersSideNavSubscription.unsubscribe()
   }
 }

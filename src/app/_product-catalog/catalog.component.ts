@@ -104,6 +104,9 @@ export class CatalogComponent implements OnInit, OnChanges {
       this.router.navigate(['/catalog'], {queryParams});
       this.paginationPageNumber = 0
   }
+  public onOpenFiltersSideNav(): void {
+    this.productService.setFilterSideNavOpened(true);
+  }
   private refresh(): void {
     let params: HttpParams = new HttpParams()
     this.productService.refreshProducts(params);

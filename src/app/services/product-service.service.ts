@@ -13,6 +13,7 @@ export class ProductServiceService  {
   private readonly URL: string = '/api/v1/products.json';
   private _productsOriginal$: Subject<IProduct[]> = new Subject<IProduct[]>();
   public readonly filteredProducts$: Observable<IProduct[]> = this._productsOriginal$.asObservable();
+  private _filterSideNavSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _cache$: Map<string, Observable<IProduct[]>> = new Map();
   private _sortingMethod: SORTING_METHOD = SORTING_METHOD.UNSORTED;
   private _searchValue: string = '';
@@ -118,5 +119,11 @@ export class ProductServiceService  {
   }
   private formUrl(url: string, params: any): string {
     return params  ? `${url}?${params.toString()}`: `${url}?`;
+  }
+  public getFiltersSideNavSubject(): Observable<boolean> {
+    return this._filterSideNavSubject.asObservable();
+  }
+  public setFilterSideNavOpened(isFilterSideNavOpened: boolean): void {
+    this._filterSideNavSubject.next(isFilterSideNavOpened);
   }
 }
