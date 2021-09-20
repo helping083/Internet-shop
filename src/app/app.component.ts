@@ -1,3 +1,5 @@
+import { IFilter } from './interfaces/filter.interface';
+import { FiltersService } from './services/filters.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductServiceService } from './services/product-service.service';
@@ -9,30 +11,34 @@ import { Routes } from './enums/';
 })
 export class AppComponent implements OnInit, OnDestroy {
   //todo: change favicon
-  //87 pacakges are looking for fundin, run npm fund
-  //aliases fro components
   //todo trackbyfn
   // add global styles like gloal media
   // add media query scss functions
   //add logo to header
-  //error handling in services
   //restart app handle http params
   // routing modules description(like function descriptions, look in new_pfa)
   // max-width of cards on media
+  //pipe
   title = 'makeup-internet-shop';
   public isFiltersSideNavSubscription: Subscription
+  public filtersServiceSubscription: Subscription
   public isSideNavOpened: boolean = false;
   public isFilteredSideNavOpened: boolean = false;
+  public filters: IFilter[];
   public sideNavRoutes: string[] = [ Routes.CATALOG, Routes.CART];
   
-  constructor(private productService: ProductServiceService) {
+  constructor(  private productService: ProductServiceService, 
+                private filtersService:FiltersService
+  ) {};
 
-  };
   ngOnInit() {
     this.isFiltersSideNavSubscription = this.productService.getFiltersSideNavSubject()
       .subscribe((isFilteredSideNav: boolean) => {
         this.isFilteredSideNavOpened = isFilteredSideNav;
-      })
+      });
+    this.filtersServiceSubscription = this.filtersService.makeUpFilters$.subscribe((filters: IFilter[]) => {
+      this.filters = filters;
+    })
   }
 
   /**
@@ -60,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.isFiltersSideNavSubscription.unsubscribe()
+    this.isFiltersSideNavSubscription.unsubscribe();
+    this.filtersServiceSubscription.unsubscribe();
   }
 }

@@ -39,7 +39,6 @@ export class CatalogComponent implements OnInit {
     private productService: ProductServiceService, 
     private cartService: CartService,
     private route: ActivatedRoute,
-    private serializer: UrlSerializer,
     private filtersService: FiltersService ) { }
 
   ngOnInit(): void {

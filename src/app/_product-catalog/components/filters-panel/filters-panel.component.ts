@@ -1,4 +1,4 @@
-import { IFilter } from './../../../interfaces/filter.interface';
+import { IFilter, IFilterValue } from './../../../interfaces/filter.interface';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -8,18 +8,17 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class FiltersPanelComponent implements OnInit {
   @Input() public filter: IFilter;
-  public filters: any[] = [];
-  public filterValue: string = ''
+  public filters: IFilterValue[] = [];
+  public filterValue: number;
   public panelOpenState: boolean = false;
   @Output() public filterCards: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
 
   }
-
   ngOnInit(): void {
-    this.filter.filterValues.forEach((filter) => {
-      this.filters.push({value: filter, checked: false})
+    this.filter.filterValues.forEach((filterValue) => {
+      this.filters.push(filterValue);
     });
   }
 
@@ -31,8 +30,10 @@ export class FiltersPanelComponent implements OnInit {
    * @returns {void}
    */
   public updateAllComplete(event: any): void {
+    console.log(event)
+    let obj = this.filters.find(o => o.id === this.filter.checkedId) as IFilterValue;
     let filterName = this.filter.filterApiName;
-    let filterValue = this.filterValue;
+    let filterValue = obj.value;
     this.filterCards.emit({filterName, filterValue});
   };
 }

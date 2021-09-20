@@ -1,6 +1,6 @@
 import { IProduct } from './../interfaces/product.interface';
 import { Injectable } from '@angular/core';
-import { IFilter } from './../interfaces/';
+import { IFilter, IFilterValue } from './../interfaces/';
 import { AsyncSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -36,12 +36,17 @@ export class FiltersService {
       product_type.add(product.product_type);
     });
 
-    filters.push({filterName: 'catergories', filterApiName: 'product_category', filterValues:[...categories]});
-    filters.push({filterName: 'tag list',filterApiName: 'product_tags', filterValues: [...tagList]});
-    filters.push({filterName: 'brand', filterApiName: 'brand' ,filterValues: [...brand]});
-    filters.push({filterName: 'product type', filterApiName: 'product_type', filterValues: [...product_type]});
-
+    filters.push({filterName: 'catergories',checkedId: 0, filterApiName: 'product_category', filterValues: this.formFilterValues([...categories], 'catergories')});
+    filters.push({filterName: 'tag list',checkedId: 0,filterApiName: 'product_tags', filterValues: this.formFilterValues([...tagList], 'tag list')});
+    filters.push({filterName: 'brand',checkedId: 0, filterApiName: 'brand' ,filterValues: this.formFilterValues([...brand], 'brand') });
+    filters.push({filterName: 'product type',checkedId: 0, filterApiName: 'product_type', filterValues: this.formFilterValues([...product_type], 'product type') });
     this._makeUpFiltersSubject$.next(filters);
     this._makeUpFiltersSubject$.complete()
   };
+  
+  private formFilterValues(filter: string[], filterName: string): IFilterValue[] {
+    return [{value: '', name: `show all by ${filterName}`, checked: true, id: 0}].concat(filter.map((filter, id) => {
+      return { value: filter,name: filter, checked: false, id: id + 1}
+    }))
+  }
 }
