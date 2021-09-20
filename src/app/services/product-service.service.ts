@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {  BehaviorSubject, Observable, Subject } from 'rxjs';
 import { IProduct } from '../interfaces';
 import { SORTING_METHOD } from '../enums';
-import { shareReplay, tap, switchMap } from 'rxjs/operators';
+import { shareReplay, tap, switchMap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,16 @@ export class ProductServiceService  {
     switchMap((params: any) => {
       let cacheUrl = this._formUrl(this.URL, params)
       if(!this._cache$.get(cacheUrl)) {
-        this._cache$.set(cacheUrl, this.http.get<IProduct[]>(this.URL, {params}).pipe(shareReplay(1)))
+        this._cache$.set(cacheUrl, 
+          this.http.get<IProduct[]>(this.URL, {params})
+            .pipe(
+              catchError((err) => {
+                this._cache$.delete(cacheUrl);
+                throw err;
+              }),
+              shareReplay(1)
+            )
+        )
       }
       return  this._cache$.get(cacheUrl) as Observable<IProduct[]>;
     }),
@@ -45,7 +54,9 @@ export class ProductServiceService  {
    * @returns Observable<IProduct>
    */
   public getCardDetails(id: string): Observable<IProduct> {
-    return this.http.get<IProduct>(`/api/v1/products/${id}.json`);
+    return this.http.get<IProduct>(`/api/v1/products/${id}.json`).pipe(catchError((err) => {
+      throw err;
+    }));
   }
 
   /**

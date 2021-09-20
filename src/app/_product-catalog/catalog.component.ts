@@ -31,6 +31,7 @@ export class CatalogComponent implements OnInit {
   public productsSortController: FormControl = new FormControl();
   public filters: IFilter[];
   private _params: {[key: string]: string} = {};
+  public errorMessage: string = '';
   private destroySubject$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -52,13 +53,17 @@ export class CatalogComponent implements OnInit {
         this.products = data;
         this.isLoading = false;
         this.isCardLoading = false;
-      })
+      },
+      (error) => {
+        this.isLoading = false;
+        this.isCardLoading = false;
+        this.errorMessage = error.message;
+      });
     this
       .productService
       .filteredProducts$
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((products: IProduct[]) => {
-          console.log('filtered products work');
           this.products = products;
       });
     this.productsSortController
@@ -69,7 +74,7 @@ export class CatalogComponent implements OnInit {
       });
     this.route.queryParams.pipe(takeUntil(this.destroySubject$))
       .subscribe((params: any) => {
-        this._params = params
+        this._params = params;
       })
   }
 

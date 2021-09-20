@@ -35,6 +35,8 @@ export class CardDetailsComponent implements OnInit, OnDestroy {
       this.productColors = productDetails.product_colors;
       this.tagLists = productDetails.tag_list;
       this.isCardDetailsLoading = false
+    }, (error) => {
+      console.log('error in card details component', error);
     });
   }
   ngOnDestroy() {
