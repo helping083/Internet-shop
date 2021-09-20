@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductServiceService } from './services/product-service.service';
-
+import { Routes } from './enums/';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public isFiltersSideNavSubscription: Subscription
   public isSideNavOpened: boolean = false;
   public isFilteredSideNavOpened: boolean = false;
-  public sideNavRoutes: string[] = ['', 'cart'];
+  public sideNavRoutes: string[] = [ Routes.CATALOG, Routes.CART];
   
   constructor(private productService: ProductServiceService) {
 
