@@ -31,10 +31,10 @@
       <strong>Description:</strong>
       <div class="card-details__details" [innerHTML]="productDetail.description"></div>
     </div>
-    <p>
-      Tags:
-    </p>
     <ng-container *ngIf="tagLists.length > 0">
+      <p>
+        Tags:
+      </p>
       <ul class="tagLists">
         <li *ngFor="let tag of tagLists" class="tagLists__tag">{{tag}}</li>
       </ul>
@@ -42,4 +42,8 @@
   </div>
 </div>
 
-<ng-template #loader>loader</ng-template>
+<ng-template #loader>
+  <div class="card-details-loader">
+    <mat-spinner ></mat-spinner>
+  </div>
+</ng-template>
