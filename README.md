@@ -2,9 +2,28 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
 
-## Development server
+## Installation
+  - Make sure you have installed `angular cli`.
+  - Run the command `npm install` in order to install all the dependencies and then:
+  - Run `ng-serve` command for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Document Structure
+      
+    src
+    ├── _cart
+    ├── _product-catalog
+        ├─ components
+        ├─ enums
+        ├─ pages
+        └── other files
+    ├── _shared
+    ├── components
+    ├── enums
+    ├── interfaces
+    ├── services
+    ├── App.jsx
+    ├── index.js
+    └── other files
 
 ## Code scaffolding
 
