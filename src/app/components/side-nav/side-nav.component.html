@@ -1,0 +1,11 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav [opened]="isOpened" (closedStart)="onSideNavClose()" class="sidenav">
+    <mat-nav-list>
+      <a [routerLink]="[link === '' ? '' : '/' + link]" [routerLinkActiveOptions]="{ exact: true }"
+        *ngFor="let link of routes" mat-list-item routerLinkActive="active" (click)="onSideNavClose()">{{link}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

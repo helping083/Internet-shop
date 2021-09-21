@@ -1,0 +1,21 @@
+<mat-drawer-container 
+  class="example-container" 
+  fullscreen [hasBackdrop]="true">
+  <mat-drawer 
+    #drawer 
+    class="example-sidenav" 
+    mode="over" 
+    (closedStart)="onCloseSideDrawer()"
+    [opened]="isOpened"
+  >
+    <aside>
+      <app-filters-panel 
+        class="filters__accordion" 
+        *ngFor="let filter of sideNavFilters" 
+        [filter]="filter"
+        (filterCards)="onFilterSideNavCards($event)"
+       ></app-filters-panel>
+    </aside>
+  </mat-drawer>
+  <ng-content ></ng-content>
+</mat-drawer-container>

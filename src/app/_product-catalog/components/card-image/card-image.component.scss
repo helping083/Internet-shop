@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+img {
+  height: 160px;
+  width: 170px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+@media (max-width: 490px) {
+  img {
+    width: 210px;
+    height: 210px;
+  }
+}

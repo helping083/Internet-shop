@@ -1,0 +1,62 @@
+<div class="cart">
+	<div class="cart__list-container">
+		<h3>{{itemsAmount$ | async}} items in Cart</h3>
+		<ul class="cart__list">
+			<div *ngFor="let item of orders$ | async" class="cart__list-item-container">
+				<li>
+					<div class="cart__cart-item">
+						<div class="cart__img-container">
+							<img [src]="item.product.api_featured_image" />
+						</div>
+						<div class="cart__description">
+							<div class="cart__name">
+								<strong>{{item.product.name}}</strong>
+							</div>
+							<div>
+								{{item.product.brand}}
+							</div>
+							<div class="cart__actions-mobile">
+								<div class="cart__buttons">
+									<mat-icon class="cart__amount-button" (click)="onRemoveOrder(item)">
+										chevron_left
+									</mat-icon>
+									<span class="cart__display-amount">{{item.amount}}</span>
+									<mat-icon (click)="onAddOrder(item)" class="cart__amount-button">
+										chevron_right
+									</mat-icon>
+								</div>
+								<span class="cart__removeAction" (click)="onRemoveFromCart(item.id)">remove</span>
+							</div>
+							<div class="cart__rating-container">
+								<bar-rating [rate]="item.product.rating" [readOnly]="true" class="cart-rating-bar"></bar-rating>
+								<div class="cart__total-amount-price-mobile cart__total-amount-price">
+									<span >{{ item.amountPrice | currency: "USD" }}</span>
+								</div>
+							</div>
+							<div class="cart__price">
+								{{item.product.price || 0.00 | currency:item.product.currency || "USD"}}
+							</div>
+						</div>
+						<div class="cart__actions">
+							<div class="cart__buttons">
+								<mat-icon class="cart__amount-button" (click)="onRemoveOrder(item)">
+									chevron_left
+								</mat-icon>
+								<span class="cart__display-amount">{{item.amount}}</span>
+								<mat-icon (click)="onAddOrder(item)" class="cart__amount-button">
+									chevron_right
+								</mat-icon>
+							</div>
+							<span class="cart__removeAction" (click)="onRemoveFromCart(item.id)">remove</span>
+						</div>
+						<span class="cart__total-amount-price">{{ item.amountPrice | currency: "USD" }}</span>
+					</div>
+				</li>
+			</div>
+		</ul>
+	</div>
+	<div class="total">
+		<div><span class="total__summary">{{ 'total price:' | uppercase }}</span></div>
+		<div><span class="total__price">{{totalPrice$ | async |  currency: "USD"}}</span></div>
+	</div>
+</div>

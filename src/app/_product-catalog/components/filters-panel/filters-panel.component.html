@@ -1,0 +1,18 @@
+<mat-accordion class="accordion">
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{filter.filterName}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <!-- our form array of checkboxes will go here -->
+    <mat-radio-group [(ngModel)]="filter.checkedId" (change)="updateAllComplete($event)">
+      <p *ngFor="let control of filters; let i = index">
+        <mat-radio-button 
+          [value]="control.id"
+          [name]="control.name">
+          {{control.name}}</mat-radio-button>
+      </p>
+    </mat-radio-group>
+  </mat-expansion-panel>
+</mat-accordion>
