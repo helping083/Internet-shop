@@ -10,15 +10,6 @@ import { Routes } from './enums/';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  //todo: change favicon
-  //todo trackbyfn
-  // add global styles like gloal media
-  // add media query scss functions
-  //add logo to header
-  //restart app handle http params
-  // routing modules description(like function descriptions, look in new_pfa)
-  // max-width of cards on media
-  //pipe
   title = 'makeup-internet-shop';
   public isFiltersSideNavSubscription: Subscription
   public filtersServiceSubscription: Subscription

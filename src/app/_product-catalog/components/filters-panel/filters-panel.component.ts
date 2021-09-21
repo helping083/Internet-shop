@@ -30,7 +30,6 @@ export class FiltersPanelComponent implements OnInit {
    * @returns {void}
    */
   public updateAllComplete(event: any): void {
-    console.log(event)
     let obj = this.filters.find(o => o.id === this.filter.checkedId) as IFilterValue;
     let filterName = this.filter.filterApiName;
     let filterValue = obj.value;
