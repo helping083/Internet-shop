@@ -1,0 +1,151 @@
+@import "../../assets/styles/variables";
+.cart {
+  max-width: $containersMaxWidth;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  padding: 0px 22px;
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 192px);
+  &__list-container {
+    flex: 1 1;
+    width: 100%;
+  }
+  &__list {
+    list-style-type: none;
+  }
+  &__list-item-container {
+    &:not(:first-child) {
+      border-top: solid 1px #d1d7dc;
+    }
+    li {
+      background-color: #fff;
+    }
+  }
+  &__cart-item {
+    padding: 30px 100px 30px 10px;
+    display: flex;
+    position: relative;
+  }
+  &__description {
+    flex: 1 1;
+  }
+  &__name {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  &__price {
+    font-style: 15px;
+  }
+  &__img-container {
+    margin-right: 10px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  &__actions-mobile {
+    margin-top: 10px;
+    display: none;
+  }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  &__total-amount-price {
+    position: absolute;
+    color: #5624d0;
+    right: 0;
+    top: 32px;
+    width: 80px;
+  }
+  &__total-amount-price-mobile {
+    display: none;
+    top: 0px;
+    bottom: 4px;
+    position: relative;
+  }
+  &__display-amount {
+    padding: 0;
+    width: 45px;
+    text-align: center;
+    border: 1px solid gray;
+  }
+  &__amount-button {
+    cursor: pointer;
+  }
+  &__removeAction {
+    color: #5624d0;
+    cursor: pointer;
+  }
+}
+.total {
+  width: 300px;
+  margin-top: 44px;
+  padding: 0px 20px;
+  &__summary {
+    font-size: 26px;
+  }
+  &__price {
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 40px;
+  }
+}
+@media (max-width: 992px) {
+  .cart {
+    flex-direction: column-reverse;
+    &__cart-item {
+      padding: 30px 10px;
+    }
+    &__total-amount-price {
+      display: none;
+    }
+    &__total-amount-price-mobile {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+  .total {
+    width: 100%;
+    padding: 0px;
+    margin-top: 0px;
+  }
+}
+@media (max-width: 600px) {
+  .cart {
+    min-height: calc(100vh - 184px);
+    &__cart-item {
+      padding: 30px 10px 50px 10px;
+    }
+    &__price {
+      position: relative;
+      top: 4px;
+    }
+    &__actions {
+      display: none;
+    }
+    &__actions-mobile {
+      display: block;
+    }
+    &__rating-container {
+      position: absolute;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    &__total-amount-price-mobile {
+      position: relative;
+      top: 7px;
+      left: 5px;
+    }
+  }
+}

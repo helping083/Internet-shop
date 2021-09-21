@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~ngx-bar-rating/themes/br-default-theme';
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    padding: 0;
+}
+.cart-popper  {
+    .ngxp__container {
+        padding: 0px;
+        background-color: white;
+        z-index: 1000;
+    }
+}
+.cart-rating-bar {
+    .br-default {
+      .br-unit {
+        width: 16px;
+      }
+    }
+  }

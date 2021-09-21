@@ -1,0 +1,15 @@
+.search-input {
+  padding: 5px;
+  height: 40px;
+  width: 100%;
+  outline: none;
+  border-radius: 3px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover,
+  &:active {
+    filter: brightness(95%);
+  }
+}

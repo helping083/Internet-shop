@@ -2,9 +2,40 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
 
-## Development server
+## Installation
+  - Make sure you have installed `angular cli`.
+  - Run the command `npm install` in order to install all the dependencies and then:
+  - Run `ng-serve` command for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Document Structure
+      
+    app
+    ├── _cart
+    ├── _product-catalog
+        ├─ components
+        ├─ enums
+        ├─ pages
+        └── other files
+    ├── _shared
+    ├── components
+    ├── enums
+    ├── interfaces
+    ├── services
+    └── other files
+
+The “app” folder contains the following:
+- folders with `_` prefix. Those folders are modules and contain componens, enums, pages and routing for those modules
+- _shared module is the global module for global dependencies, shared across all other modules
+- components folder contains dumb components shared across all modules
+- enums contains global enums
+- interfaces folder contains app level abastractions
+- services folder is self-explanatory
+
+### Style Guide
+- variables and functions with `_` prefix are private.
+- variables with `$` suffix mean a stream, something like observable or subject
+- tabwith - 2
+- angular material indigo-pink theme
 
 ## Code scaffolding
 

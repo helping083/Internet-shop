@@ -1,0 +1,135 @@
+.toolbar__nav {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+.header__list {
+  display: flex;
+  height: 100%;
+  list-style-type: none;
+  &__item {
+    padding: 0 24px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    &.active {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 17px;
+    &:hover {
+      cursor: pointer;
+      color: #f48fb1;
+    }
+  }
+}
+.search-bar-container {
+  flex-grow: 1;
+  margin-right: 80px;
+  max-width: 45%;
+}
+.cart-container {
+  margin-right: 20px;
+  .mat-icon {
+    font-size: 28px;
+  }
+}
+.cart-popper {
+  max-height: 500px;
+  overflow-y: scroll;
+  &__cart-item {
+    border-bottom: 1px solid #d1d7dc;
+    display: flex;
+    padding: 12px;
+    width: 350px;
+  }
+  &__cart-description {
+    flex-grow: 1;
+  }
+  .cart-item {
+    &__image {
+      margin-right: 10px;
+      width: 3.2rem;
+      height: 3.2rem;
+      overflow: hidden;
+      img {
+        vertical-align: middle;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  &__actions--center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__arrow {
+    cursor: pointer;
+  }
+  &__remove-action {
+    cursor: pointer;
+  }
+  &__order-amount {
+    border: 1px solid black;
+    padding: 6px;
+  }
+  &__footer {
+    padding: 20px;
+  }
+  .footer {
+    &__cart-button {
+      width: 100%;
+    }
+  }
+}
+.popper--empty {
+  padding: 10px;
+}
+@media (max-width: 1024px) {
+  .search-bar-container {
+    margin-right: 0px;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__list {
+    display: none;
+  }
+  .search-bar-container {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 568px) {
+  .cart-container {
+    margin-right: 0px;
+  }
+  .cart-popper {
+    &__cart-item {
+      width: 310px;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .side-nav-button {
+    display: none;
+  }
+};

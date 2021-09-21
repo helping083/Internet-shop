@@ -1,0 +1,79 @@
+<mat-toolbar color="primary" class="toolbar">
+  <nav class="toolbar__nav">
+    <button class="side-nav-button" mat-icon-button (click)="onShowSideNav()" type="button" matRipple #sideNavButton>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <ul class="header__list">
+      <li class="header__list__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
+          routerLink="/catalog">catalog</a></li>
+      <li class="header__list__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
+          routerLink="/cart">cart</a></li>
+    </ul>
+    <div class="search-bar-container">
+      <app-search-bar [searchControl]="searchControl"></app-search-bar>
+    </div>
+    <div class="cart-container">
+      <button 
+        type="button" 
+        mat-icon-button 
+        [matBadge]="productsAmount" 
+        [matBadgeHidden]="!isBadgeHidden"
+        matBadgeColor="warn" 
+        matBadgeSize="small" 
+        [popper]="tooltipcontent" 
+        [popperHideOnMouseLeave]="true"
+        [popperTrigger]="'hover'" 
+        [popperPreventOverflow]="true"
+        [popperHideOnClickOutside]="true"
+        [popperPlacement]="'bottom-end'">
+        <mat-icon>
+          shopping_cart
+        </mat-icon>
+      </button>
+    </div>
+  </nav>
+</mat-toolbar>
+
+<popper-content #tooltipcontent [ngClass]="{'cart-popper':true}">
+  <div class="cart-popper">
+    <ng-container *ngIf="orders.length > 0; else cartEmptyTemplate">
+      <a *ngFor="let order of orders" class="cart-popper__cart-item">
+        <div class="cart-item__image">
+          <img [src]="order.product.api_featured_image" />
+        </div>
+        <div class="cart-popper__cart-description">
+          <div class="cart-item__name"><strong>{{order.product.name | slice:0:30}}...</strong></div>
+          <div>{{order.product.brand}}</div>
+          <div><strong>{{order.product.price || 0.00 | currency:order.product.currency || "USD"}}</strong></div>
+        </div>
+        <div class="cart-popper__actions">
+          <div class="cart-popper__actions--center">
+            <mat-icon class="cart-popper__arrow" (click)="onDecreaseOrder(order.product)">
+              chevron_left
+            </mat-icon>
+            <span class="cart-popper__order-amount">{{order.amount}}</span>
+            <mat-icon class="cart-popper__arrow" (click)="onIncreaseOrder(order.product)">
+              chevron_right
+            </mat-icon>
+          </div>
+          <div class="cart-popper__remove-action"><span (click)="onDeleteOrder(order.id)">remove</span></div>
+        </div>
+      </a>
+      <div class="cart-popper__footer">
+        <div class="footer__total-price">Total price: {{ totalPrice | currency: "USD" }}</div>
+        <button 
+          type="button" 
+          mat-raised-button 
+          color="accent" 
+          class="footer__cart-button"
+          (click)="onGoToCard()"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #cartEmptyTemplate>
+      <div class="popper--empty">your cart is empty</div>
+    </ng-template>
+  </div>
+</popper-content>
